@@ -1,5 +1,9 @@
 <?php get_header(); ?>
 
+<!-- navbar -->
+<?php include('template-parts/navbar.php') ?>
+<!-- end navbar -->
+
 <main role="main">
     <section class="jumbotron text-center">
         <div class="container">

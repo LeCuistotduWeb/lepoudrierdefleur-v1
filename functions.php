@@ -4,15 +4,15 @@
 //======= Chargement des scripts
 //===================================================
 
-define('LPDF_VERSION', '1.0.0');  // Define a version of styles and scripts files
+define('LPDF_VERSION', '0.0.1');  // Define a version of styles and scripts files
 
 function lpdf_base_scripts_and_styles(){
     // Scripts css
     wp_enqueue_style('lpdf_bootstrap-core', 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', [], LPDF_VERSION, 'all');
-    wp_enqueue_style('lpdf_custom_css', get_template_directory_uri() . '/style.css', ['lpdf_bootstrap-core'], LPDF_VERSION, 'all');
+    wp_enqueue_style('lpdf_custom_css', get_template_directory_uri() . '/dist/css/app.css', ['lpdf_bootstrap-core'], LPDF_VERSION, 'all');
 
     // Scripts js
-    wp_enqueue_script('lpdf_custom_js', get_template_directory_uri() . '/js/app.js', [], LPDF_VERSION, true);
+    wp_enqueue_script('lpdf_custom_js', get_template_directory_uri() . '/dist/js/app.min.js', [], LPDF_VERSION, true);
 }
 add_action('wp_enqueue_scripts', 'lpdf_base_scripts_and_styles');
 
