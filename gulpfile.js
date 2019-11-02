@@ -9,7 +9,7 @@ const minify = require('gulp-clean-css');
 const dir = './dist/';
 
 function css() {
-    return src('./css/scss/**/*.scss')
+    return src(['./css/scss/**/*.scss'])
         .pipe(sass().on('error', sass.logError))
         .pipe(minify())
         .pipe(autoprefixer())
@@ -32,5 +32,7 @@ function watcher() {
 };
 
 exports.js = series(js);
+exports.css = series(css);
 exports.watcher = series(watcher);
-exports.default = parallel(css, js)
+exports.default = parallel(watcher);
+exports.production = parallel(css, js);
