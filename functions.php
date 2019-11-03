@@ -33,7 +33,7 @@ function lpdf_setup(){
     remove_action('the_content', 'wptexturize');
 
     // bootstrap nav menu plugins.
-    require_once('includes\class-wp-bootstrap-navwalker.php');
+    require_once('includes/class-wp-bootstrap-navwalker.php');
 
     // Active la gestion des menus
     register_nav_menus([
