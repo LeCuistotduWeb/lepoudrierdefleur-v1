@@ -1,0 +1,22 @@
+/* Thumbnail column */
+.manage-column.column-thumbnail{
+  width: 150px;
+}
+
+/* Sponsoring column */
+.manage-column.column-lpdf_sponso {width: 130px;}
+.column-lpdf_sponso {vertical-align: middle !important;}
+.column-lpdf_sponso .bullet:before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 15px;
+}
+.column-lpdf_sponso .bullet-no:before {background-color: lightcoral;}
+.column-lpdf_sponso .bullet-yes:before {background-color: lightgreen;}
+
+body {
+  background-color: red;
+}
