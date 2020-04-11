@@ -18,21 +18,18 @@
 
                         <div class="col-md-4">
                             <article class="card mb-4 shadow-sm">
-                                <a href="<?= the_permalink() ?>">
-                                    <?php if($thumbnail_html = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large')):
-                                        $thumbnail_src = $thumbnail_html['0']; ?>
-                                        <picture>
-                                            <img src="<?= $thumbnail_src ?>" alt="<?= get_the_title() ?>" class="img-fluid">
-                                        </picture>
-                                    <?php endif;?>
-                                </a>
+
+                                <?php if($thumbnail_html = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large')):
+                                    $thumbnail_src = $thumbnail_html['0']; ?>
+                                    <picture>
+                                        <img src="<?= $thumbnail_src ?>" alt="<?= get_the_title() ?>" class="img-fluid">
+                                    </picture>
+                                <?php endif;?>
+
                                 <div class="card-body">
                                     <h3><a href="<?= the_permalink() ?>"><?= get_the_title() ?></a></h3>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <a href="<?= the_permalink() ?>">Lire l'article</a>
-                                        </div>
-                                        <small class="text-muted">231 ❤</small>
+                                        <?php the_content(); ?>
                                     </div>
                                 </div>
                             </article>

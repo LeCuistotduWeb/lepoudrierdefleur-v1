@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * Class BlogInformations
+ */
 class BlogInformations
 {
     const GROUP = 'bloginformations_options';
@@ -45,7 +47,7 @@ class BlogInformations
             <input type="email" name="bloginformations_business_email" placeholder="Email Pro" value="<?= esc_attr(get_option('bloginformations_business_email')) ?>">
             <?php
         }, self::GROUP, 'bloginformations_options_section');
-        
+
         add_settings_field('bloginformations_biography', 'Biography', function (){
             ?>
             <textarea name="bloginformations_biography" cols="100" rows="10"><?= esc_html(get_option('bloginformations_biography')) ?></textarea>

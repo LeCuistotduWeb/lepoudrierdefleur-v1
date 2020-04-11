@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class SponsoMetaBox
+ */
 class SponsoMetaBox {
 
     const META_KEY = 'lpdf_sponso';
@@ -17,11 +20,12 @@ class SponsoMetaBox {
 
     public static function render ($post)
     {
-        $value = get_post_meta($post->ID);
+        $value = get_post_meta($post->ID, self::META_KEY, true);
         ?>
+        <label for="<?= self::META_KEY ?>_input">
         <input type="hidden" value="0" name="<?= self::META_KEY ?>">
-        <input type="checkbox" value="1" name="<?= self::META_KEY ?>" <?= checked($value, '1') ?>>
-        <label for="lpdfsponso"><?= __('Is sponsored') ?></label>
+        <input id="<?= self::META_KEY ?>_input" type="checkbox" value="1" name="<?= self::META_KEY ?>" <?= checked($value, '1') ?>>
+        <?= __('Article sponsorisé') ?></label>
         <?php
     }
 
