@@ -2,6 +2,8 @@
 
 <main role="main">
     <div class="container">
+        
+        <h1><?= __("Résultat de la recherche pour ", 'lpdf'). get_search_query() ?></h1>
 
         <div class="row">
             <?php if(have_posts()): ?>
@@ -46,6 +48,8 @@
 
         <?= lpdf_pagination() ?>
 
+    </div>
+    </div>
     </div>
 
 </main>

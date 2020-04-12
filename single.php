@@ -46,6 +46,7 @@ if($thumbnail_html = wp_get_attachment_image_src( get_post_thumbnail_id($post->I
 
                 <?php endif; ?>
             </div>
+
             <div class="row">
                 <div class="col">
                 <?php if (get_post_meta(get_the_ID(), SponsoMetaBox::META_KEY, true) === '1') { ?>

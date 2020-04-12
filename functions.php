@@ -1,13 +1,27 @@
 <?php
-define('LPDF_VERSION', '0.0.2');  // Define a version of styles and scripts files
 
 //===================================================
-//======= Supports
+//======= Constants
+//====================================================
+define('LPDF_VERSION', '0.0.1');  // Define a version of styles and scripts files
+
+//===================================================
+//======= Require
+//====================================================
+require_once 'classes/metaboxes/Sponso.php';
+require_once 'classes/options/Bloginformations.php';
+require_once 'classes/CustomPost.php';
+require_once 'classes/GoodDeals.php';
+require_once 'widgets/YoutubeWidget.php';
+
+//===================================================
+//======= Functions
 //====================================================
 function lpdf_setup()
 {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
+    add_image_size( 'thumbnail-large', 150, 0, false );
     add_theme_support('menus');
 
     register_nav_menus([
@@ -33,6 +47,11 @@ function lpdf_register_assets()
 
 }
 
+function lpdf_register_admin_assets()
+{
+    wp_enqueue_style('admin_lpdf', get_template_directory_uri() . '/dist/admin/css/admin.min.css');
+    wp_enqueue_script('admin_lpdf', get_template_directory_uri() . '/dist/admin/js/admin.min.js');
+}
 
 function lpdf_title_separator()
 {
@@ -71,6 +90,18 @@ function lpdf_pagination()
     }
 }
 
+function lpdf_register_widget(){
+    register_widget(YoutubeWidget::class);
+    register_sidebar([
+        'id'=> 'homepage',
+        'name'  => __('Sidebar Accueil', 'lpdf'),
+        'before_widget'  => '<div class="p-4 %2$s" id="%1$s">',
+        'after_widget'  => '</div>',
+        'before_title'=> '<h4>',
+        'after_title'=> '</h4>',
+    ]);
+}
+
 function lpdf_init() {
     register_post_type('gooddeals', [
         'label'   => __('bons plans', 'lpdf'),
@@ -82,56 +113,22 @@ function lpdf_init() {
     ]);
 }
 
+//===================================================
+//======= Classes
+//====================================================
+SponsoMetaBox::register();
+BlogInformations::register();
+GoodDeals::register();
+CustomPost::register();
+
+//===================================================
+//======= Filters & Actions
+//====================================================
 add_action('init', 'lpdf_init');
 add_action('after_setup_theme', 'lpdf_setup');
 add_action('wp_enqueue_scripts', 'lpdf_register_assets');
-
 add_filter('document_title_separator', 'lpdf_title_separator');
 add_filter('nav_menu_css_class', 'lpdf_menu_class');
 add_filter('nav_menu_link_attributes', 'lpdf_menu_link_class');
-
-require_once ('class/metaboxes/sponso.php');
-require_once('class/options/bloginformations.php');
-
-SponsoMetaBox::register();
-BlogInformations::register();
-
-// Post Filter
-add_filter('manage_gooddeals_posts_columns', function($columns){
-    return [
-        'cb' => $columns['cb'],
-        'thumbnail' => __('miniature', 'lpdf'),
-        'title' => $columns['title'],
-        'date' => $columns['date'],
-    ];
-});
-
-add_filter('manage_gooddeals_posts_custom_column', function($column, $postId){
-   if($column === 'thumbnail'){
-       the_post_thumbnail('thumbnail', $postId);
-   }
-}, 10, 2);
-
-// Post Filter
-add_filter('manage_post_posts_columns', function($columns){
-    $newColumns = [];
-    foreach ($columns as $k => $v){
-        if($k === 'date') {
-            $newColumns[SponsoMetaBox::META_KEY] = __('Article sponsorisé', 'lpdf');
-        }
-        $newColumns[$k] = $v;
-    }
-    return $newColumns;
-});
-
-add_filter('manage_post_posts_custom_column', function($column, $postId){
-    if($column === SponsoMetaBox::META_KEY){
-        !empty(get_post_meta($postId, SponsoMetaBox::META_KEY, true)) ? $class = 'yes' : $class = 'no';
-        echo '<div class="bullet bullet-'.$class.'">'. $class.'</div>';
-    }
-}, 10, 2);
-
-add_action('admin_enqueue_scripts', function(){
-    wp_enqueue_style('admin_lpdf', get_template_directory_uri() . '/dist/admin/css/admin.min.css');
-    wp_enqueue_script('admin_lpdf', get_template_directory_uri() . '/dist/admin/js/admin.min.js');
-});
+add_action('admin_enqueue_scripts', 'lpdf_register_admin_assets');
+add_action('widgets_init', 'lpdf_register_widget');
