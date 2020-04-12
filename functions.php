@@ -21,6 +21,7 @@ function lpdf_setup()
 {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
+    add_theme_support('html5');
     add_image_size( 'thumbnail-large', 150, 0, false );
     add_theme_support('menus');
 
@@ -38,8 +39,11 @@ function lpdf_register_assets()
     wp_register_style('bootstrap-css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', [], LPDF_VERSION, 'all');
     wp_register_script('bootstrap-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js', ['popper','jquery'], LPDF_VERSION, true);
     wp_register_script('popper', 'https://code.jquery.com/jquery-3.2.1.slim.min.js', [], false, true);
-    wp_deregister_script('jquery');
-    wp_register_script('jquery', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js', [], false, true);
+
+    if(!is_customize_preview()){
+        wp_deregister_script('jquery');
+        wp_register_script('jquery', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js', [], false, true);
+    }
 
     wp_enqueue_style('bootstrap-css');
     wp_enqueue_script('lpdf_custom_js', get_template_directory_uri() . '/dist/js/app.min.js', ['bootstrap-js'], LPDF_VERSION, true);
@@ -100,6 +104,33 @@ function lpdf_register_widget(){
         'before_title'=> '<h4>',
         'after_title'=> '</h4>',
     ]);
+
+    register_sidebar([
+        'id'=> 'footer 1',
+        'name'  => __('Footer1', 'lpdf'),
+        'before_widget'  => '<div class="p-4 %2$s" id="%1$s">',
+        'after_widget'  => '</div>',
+        'before_title'=> '<h4>',
+        'after_title'=> '</h4>',
+    ]);
+
+    register_sidebar([
+        'id'=> 'footer2',
+        'name'  => __('Footer 2', 'lpdf'),
+        'before_widget'  => '<div class="p-4 %2$s" id="%1$s">',
+        'after_widget'  => '</div>',
+        'before_title'=> '<h4>',
+        'after_title'=> '</h4>',
+    ]);
+
+    register_sidebar([
+        'id'=> 'footer3',
+        'name'  => __('Footer 3', 'lpdf'),
+        'before_widget'  => '<div class="p-4 %2$s" id="%1$s">',
+        'after_widget'  => '</div>',
+        'before_title'=> '<h4>',
+        'after_title'=> '</h4>',
+    ]);
 }
 
 function lpdf_init() {
@@ -132,3 +163,5 @@ add_filter('nav_menu_css_class', 'lpdf_menu_class');
 add_filter('nav_menu_link_attributes', 'lpdf_menu_link_class');
 add_action('admin_enqueue_scripts', 'lpdf_register_admin_assets');
 add_action('widgets_init', 'lpdf_register_widget');
+add_action('after_switch_theme', 'flush_rewrite_rules');
+add_action('before_switch_theme', 'flush_rewrite_rules');

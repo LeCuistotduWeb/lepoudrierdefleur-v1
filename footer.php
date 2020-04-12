@@ -1,45 +1,21 @@
-<footer class="page-footer blue text-center text-md-left mt-0">
+<footer class="page-footer text-center text-md-left mt-0">
 
-    <!--Footer Links-->
     <div class="container-fluid">
         <div class="row">
 
-            <!--First column-->
             <div class="col-md-6">
-                <h5 class="title mb-3">Le poudrier de fleur</h5>
-                <p>Here you can use rows and columns here to organize your footer content.</p>
+                <?php dynamic_sidebar('footer1'); ?>
             </div>
-            <!--/.First column-->
 
-            <!--Second column-->
             <div class="col-md-3">
-                <h5 class="title mb-3"><?= __('Categories', 'lpdf') ?></h5>
-                <?php wp_nav_menu([
-                    'theme_location' => 'footer',
-                    'container'      => false,
-                    'menu_class'     => 'navbar-nav mr-auto',
-                ]); ?>
+                <?php dynamic_sidebar('footer2'); ?>
             </div>
-            <!--/.Second column-->
 
-            <!--third column-->
             <div class="col-md-3">
-                <h5 class="title mb-3"><?= __('Socials', 'lpdf') ?></h5>
-                <ul class="list-unstyled">
-                <?php wp_nav_menu([
-
-                    'theme_location' => 'social',
-                    'container'      => false,
-                    'menu_class'     => 'navbar-nav mr-auto',
-                ]); ?>
-                </ul>
-                <h5 class="title mb-3"><?= __('Rechercher', 'lpdf') ?></h5>
-                <?php get_search_form() ?>
+                <?php dynamic_sidebar('footer3'); ?>
             </div>
-            <!--/.third column-->
         </div>
     </div>
-    <!--/.Footer Links-->
 
     <!--Copyright-->
     <div class="footer-copyright bg-light text-center">
