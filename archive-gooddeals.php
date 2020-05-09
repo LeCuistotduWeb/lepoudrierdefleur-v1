@@ -1,4 +1,12 @@
-<?php get_header(); ?>
+<?php
+get_header();
+
+$discount_code = get_field('discount_code');
+$discount_type = get_field('discount_type');
+$discount = get_field('discount');
+$discount_start_date = get_field('start_date');
+$discount_end_date = get_field('end_date');
+?>
 
 <main role="main">
     <section class="jumbotron text-center">
@@ -15,24 +23,10 @@
             <div class="row">
                 <?php if(have_posts()):
                     while (have_posts()): the_post(); ?>
-
                         <div class="col-md-4">
-                            <article class="card mb-4 shadow-sm">
-
-                                <?php if($thumbnail_html = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large')):
-                                    $thumbnail_src = $thumbnail_html['0']; ?>
-                                    <picture>
-                                        <img src="<?= $thumbnail_src ?>" alt="<?= get_the_title() ?>" class="img-fluid">
-                                    </picture>
-                                <?php endif;?>
-
-                                <div class="card-body">
-                                    <h3><a href="<?= the_permalink() ?>"><?= get_the_title() ?></a></h3>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <?php the_content(); ?>
-                                    </div>
-                                </div>
-                            </article>
+                            <a href="<?= the_permalink() ?>">
+                                <?php get_template_part('template-parts/good-deals/good-deals_card'); ?>
+                            </a>
                         </div>
 
                     <?php endwhile; ?>

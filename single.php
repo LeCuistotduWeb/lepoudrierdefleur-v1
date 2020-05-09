@@ -6,61 +6,67 @@ if($thumbnail_html = wp_get_attachment_image_src( get_post_thumbnail_id($post->I
 
 <?php get_header(); ?>
 
-<main role="main" class="single-post">
-
-    <div class="single-post-content__container">
-        <div class="container">
-            <div class="row">
-                <img src="<?php the_post_thumbnail_url() ?>" alt="<?php get_the_title() ?>">
-            </div>
-            <div class="row">
-                <h1 class=""><?= get_the_title() ?></h1>
-            </div>
-            <div class="row">
-                <?php if(have_posts()):
-                    while (have_posts()): the_post(); ?>
-                        <div class="content">
-                            <?= get_the_content() ?>
-                        </div>
-
-                    <?php endwhile; ?>
-
-                    <div class="row">
-                        <div class="col">
-                            <nav>
-                                <ul class="lpdf_pager">
-                                    <li><?php previous_post_link() ?></li>
-                                    <li><?php next_post_link() ?></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-
-                <?php else: ?>
-
-                    <div class="row">
-                        <div class="col">
-                            <p><?php _e("Il n'y a aucun resultat", "lpdf") ?></p>
-                        </div>
-                    </div>
-
-                <?php endif; ?>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                <?php if (get_post_meta(get_the_ID(), SponsoMetaBox::META_KEY, true) === '1') { ?>
-                    <div class="alert alert-info"><?php _e('* Cette article est sponsorisé', 'lpdf') ?></div>
-                <?php } ?>
-                </div>
-            </div>
-
-            <?php if (comments_open() || get_comments_number()){
-                comments_template();
-            } ?>
+<?php if(have_posts()):
+while (have_posts()): the_post(); ?>
+<main class="single-post">
+    <div class="container-fluid container-md p-0">
+        <header class="text-center">
+            <!-- Preview Image -->
+            <img class="img-fluid" src="http://placehold.it/1200x450" alt="">
+        </header>
     </div>
 
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Post Content Column -->
+            <div class="col">
+                <!-- Title -->
+                <h1 class="mt-4"><?php the_title() ?></h1>
+
+                <!-- categories -->
+                <div class="row">
+                    <div class="col">
+                        <div class="categories">
+                            <p><?php the_category(); ?></p>
+                        </div>
+                    </div>
+                    <div class="col text-right">
+                        <span>33 com</span>
+                        <span>23 likes</span>
+                    </div>
+                </div>
+
+                <!-- Post Content -->
+                <?php the_content(); ?>
+
+                <?php if (get_post_meta(get_the_ID(), SponsoMetaBox::META_KEY, true) === '1') { ?>
+                <div class="row">
+                    <div class="col">
+                            <div><?php _e('* Cette article est sponsorisé', 'lpdf') ?></div>
+                    </div>
+                </div>
+                <?php } ?>
+
+                <!-- previous/next post -->
+                <hr>
+                <div><?php previous_post_link() ?></div>
+                <div><?php next_post_link() ?></div>
+
+                <hr>
+
+                <?php if (comments_open() || get_comments_number()){
+                    comments_template();
+                } ?>
+
+            </div>
+
+        </div>
+    </div>
 </main>
+<?php endwhile; ?>
+<?php endif; ?>
 
 <?php get_footer(); ?>
 

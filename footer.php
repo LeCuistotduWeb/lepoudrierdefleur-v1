@@ -1,4 +1,4 @@
-<footer class="page-footer text-center text-md-left mt-0">
+<footer class="footer text-center text-md-left mt-0">
 
     <div class="container-fluid">
         <div class="row">
@@ -18,13 +18,11 @@
     </div>
 
     <!--Copyright-->
-    <div class="footer-copyright bg-light text-center">
+    <div class="footer-copyright text-center">
         <div class="container-fluid">
             <p>
-                Tous droits réservés Lepoudrierdefleur ♡ Site made by <a href="https://lecuistotduweb.fr">Gaëtan Boyron</a><br>
-                Mentions légales – Politique de Confidentialité
+                Tous droits réservés Lepoudrierdefleur ♡ Site made by <a href="https://lecuistotduweb.fr">Gaëtan Boyron</a>
             </p>
-
         </div>
     </div>
     <!--/.Copyright-->

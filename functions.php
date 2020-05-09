@@ -11,7 +11,6 @@ define('LPDF_VERSION', '0.0.1');  // Define a version of styles and scripts file
 require_once 'classes/metaboxes/Sponso.php';
 require_once 'classes/options/Bloginformations.php';
 require_once 'classes/CustomPost.php';
-require_once 'classes/GoodDeals.php';
 require_once 'widgets/YoutubeWidget.php';
 
 //===================================================
@@ -133,29 +132,15 @@ function lpdf_register_widget(){
     ]);
 }
 
-function lpdf_init() {
-    register_post_type('gooddeals', [
-        'label'   => __('bons plans', 'lpdf'),
-        'public'  => true,
-        'menu_position' => 4,
-        'menu_icon'     => 'dashicons-products',
-        'supports'      => ['title', 'editor', 'thumbnail'],
-        'has_archive'   => true
-    ]);
-}
-
 //===================================================
 //======= Classes
 //====================================================
-SponsoMetaBox::register();
 BlogInformations::register();
-GoodDeals::register();
 CustomPost::register();
 
 //===================================================
 //======= Filters & Actions
 //====================================================
-add_action('init', 'lpdf_init');
 add_action('after_setup_theme', 'lpdf_setup');
 add_action('wp_enqueue_scripts', 'lpdf_register_assets');
 add_filter('document_title_separator', 'lpdf_title_separator');
